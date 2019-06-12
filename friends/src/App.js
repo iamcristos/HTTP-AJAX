@@ -1,10 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Friends from './components/friends'
 
 function App() {
   return (
     <div className="App">
+      <Friends/>
     </div>
   );
 }
