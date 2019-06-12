@@ -15,7 +15,7 @@ const friendList = ({friends})=>{
         margin: 1rem;
         width: 320px;
         @media (min-width:550px) {
-            width: 450px
+            width: 300px
         }
     }
     `

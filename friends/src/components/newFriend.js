@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-const newFriend = ()=>{
+const newFriend = (props)=>{
     const Form = styled.form`
         display: flex;
         flex-direction: column;
@@ -26,11 +26,11 @@ const newFriend = ()=>{
     `
     return (
         <div>
-            <Form>
-                <input type='text' placeholder='Name'/>
-                <input type='text' placeholder='Age'/>
-                <input type='email' placeholder='email'/>
-                <button>Add Friend</button>
+            <Form onSubmit={props.addFriend}>
+                <input type='text' placeholder='Name' name='name'/>
+                <input type='text' placeholder='Age' name='age' />
+                <input type='email' placeholder='email' name='email' />
+                <button onSubmit={props.addFriend}>Add Friend</button>
             </Form>
         </div>
     )
