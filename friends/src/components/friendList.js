@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-const friendList = ({friends})=>{
+import {Link} from 'react-router-dom'
+const friendList = (props)=>{
     const Friend = styled.div`
     display: flex;
    flex-direction: column;
@@ -17,16 +18,21 @@ const friendList = ({friends})=>{
         @media (min-width:550px) {
             width: 300px
         }
+
+        a{
+            color: black;
+            text-decoration: none;
+        }
     }
     `
     return (
         <Friend>
-            {friends.map(friend=>(
+            {props.friends.map(friend=>(
                 <div key={friend.id}>
                     <h2> {friend.name}</h2>
                     <p>{friend.age} </p>
                     <p>{friend.email}</p>
-                    <button>Update</button>
+                    <button><Link to={`/friend/${friend.id}`}>Update</Link></button>
                     <button>Delete</button>
                 </div>
             ))}

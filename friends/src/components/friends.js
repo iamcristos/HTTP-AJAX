@@ -4,13 +4,12 @@ import FriendList from './friendList';
 import NewFriend from './newFriend';
 import {Route,withRouter} from 'react-router-dom';
 import NavItems from './Navigation/navigation'
-import uuid from 'uuid'
 class Friends extends Component {
 
     state = {
         friends: null,
         error: '',
-        loading: false
+        loading: false,
     }
     async componentDidMount () {
         this.setState({loading:true})
@@ -24,8 +23,7 @@ class Friends extends Component {
         }
     }
 
-    onSubmitHandler = async (e)=> {
-        e.preventDefault()
+    formData = async (e,url,method)=>{
         const friend = new FormData(e.target)
         const name = friend.get('name')
         const age = friend.get('age')
@@ -35,8 +33,8 @@ class Friends extends Component {
             if (!name.trim() && !age.trim() && !email ) {
                 throw new Error('all input fields are required')
             } else {
-                const friendData = {id:uuid(),name,age,email}
-                const addFriend = await axois.post('http://localhost:5000/friends', friendData) 
+                const friendData = {name,age,email}
+                const addFriend = await method(url, friendData) 
                 this.setState({friends: addFriend.data})
                 this.props.history.push('/')
             }
@@ -47,6 +45,16 @@ class Friends extends Component {
         }
     }
 
+    onSubmitHandler = (e)=> {
+        e.preventDefault()
+        this.formData(e, 'http://localhost:5000/friends', axois.post)
+    }
+
+    onUpdateHandler =  (e)=>(id)=>{
+        e.preventDefault()
+        this.formData(e, `http://localhost:5000/friends/${id}`, axois.put)
+    }
+
     render() {
         return (
             <div>
@@ -55,6 +63,7 @@ class Friends extends Component {
                  this.state.friends && <Route exact path='/' render={(props)=> <FriendList friends={this.state.friends} {...props}/>}/> 
             }
                <Route path='/addfriend' render={(props)=> <NewFriend addFriend={this.onSubmitHandler} {...props} />} />
+               <Route path='/friend/:id' render={(props)=> <NewFriend updateFriend={this.onUpdateHandler} {...props} />} />
             </div>
         )
     }

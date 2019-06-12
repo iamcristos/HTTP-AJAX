@@ -24,9 +24,11 @@ const newFriend = (props)=>{
             padding: .3rem 2rem;
         }
     `
+    const {id} = props.match.params;
+    const update = (e)=>(id)=> props.updateFriend(e)(id)
     return (
         <div>
-            <Form onSubmit={props.addFriend}>
+            <Form onSubmit={id ? (e)=>update(e)(id) : props.addFriend}>
                 <input type='text' placeholder='Name' name='name'/>
                 <input type='text' placeholder='Age' name='age' />
                 <input type='email' placeholder='email' name='email' />
