@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
 const friendList = (props)=>{
     const Friend = styled.div`
     display: flex;
@@ -33,11 +34,18 @@ const friendList = (props)=>{
                     <p>{friend.age} </p>
                     <p>{friend.email}</p>
                     <button><Link to={`/friend/${friend.id}`}>Update</Link></button>
-                    <button>Delete</button>
+                    <button onClick={(e)=>props.onDelete(e)(friend.id)} >Delete</button>
                 </div>
             ))}
         </Friend>
     )
+}
+
+friendList.propTypes = {
+        id: PropTypes.number,
+        name: PropTypes.string,
+        age: PropTypes.number,
+        email: PropTypes.string
 }
 
 export default friendList;

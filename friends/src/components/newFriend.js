@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 const newFriend = (props)=>{
     const Form = styled.form`
         display: flex;
@@ -30,12 +31,17 @@ const newFriend = (props)=>{
         <div>
             <Form onSubmit={id ? (e)=>update(e)(id) : props.addFriend}>
                 <input type='text' placeholder='Name' name='name'/>
-                <input type='text' placeholder='Age' name='age' />
+                <input type='number' placeholder='Age' name='age' />
                 <input type='email' placeholder='email' name='email' />
-                <button onSubmit={props.addFriend}>Add Friend</button>
+                <button>Add Friend</button>
             </Form>
         </div>
     )
+}
+
+newFriend.propTypes = {
+    updateFriend: PropTypes.func,
+    addFriend: PropTypes.func
 }
 
 export default newFriend
